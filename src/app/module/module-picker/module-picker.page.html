@@ -1,0 +1,35 @@
+<ion-header >
+  <ion-toolbar color="primary" *ngIf="!searchbarVisible" >
+
+      <ion-title>Wähle ein Modul aus:</ion-title>
+      <ion-button slot="end" (click)="cancelSearch()">
+        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+      </ion-button>
+
+  </ion-toolbar>
+
+    <ion-searchbar [(ngModel)]="filter"
+                   #autofocus
+                   *ngIf="searchbarVisible"
+                   (ionChange)="doSearch()"
+                   (ionCancel)="cancelSearch()"
+                   showCancelButton="always"
+                   placeholder="Modul suchen">
+    </ion-searchbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item button
+              *ngFor="let module of filteredModules"
+              (click)="modalController.dismiss(module)"
+    >
+      {{module.name}}
+    </ion-item>
+  </ion-list>
+  <ion-buttons class="button">
+    <ion-button (click)="abbrechen()" color="primary" slot="start">ABBRECHEN</ion-button>
+    <ion-button (click)="ueberspringen()" color="primary" slot="end">ÜBERSPRIGEN</ion-button>
+  </ion-buttons>
+</ion-content>

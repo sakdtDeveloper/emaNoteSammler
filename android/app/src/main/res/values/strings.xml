@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ema-5093478-u1</string>
+    <string name="title_activity_main">ema-5093478-u1</string>
+    <string name="package_name">com.example.app</string>
+    <string name="custom_url_scheme">com.example.app</string>
+</resources>

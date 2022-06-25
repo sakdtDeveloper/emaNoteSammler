@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{pageTitle}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="deleteRecord()" *ngIf="isEditMode">
+        <ion-icon slot="icon-only" name="trash">
+        </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-label>Modulnr*</ion-label>
+      <ion-input class="ion-text-end" #moduleNr
+                 type="text"
+                 maxlength="10"
+                 required [(ngModel)]="record.moduleNr">
+      </ion-input>
+    </ion-item>
+    <p class="ion-text-end ion-padding-end"
+       style="color:var(--ion-color-danger)"
+       *ngIf="errors.get('moduleNr')">
+      {{errors.get('moduleNr')}}
+    </p>
+    <ion-item>
+      <ion-label>Name*</ion-label>
+      <ion-input class="ion-text-end"
+                 type="text"
+                 maxlength="30"
+                 required [(ngModel)]="record.moduleName">
+      </ion-input>
+    </ion-item>
+    <p class="ion-text-end ion-padding-end"
+       style="color:var(--ion-color-danger)"
+       *ngIf="errors.get('moduleName')">
+      {{errors.get('moduleName')}}
+    </p>
+    <ion-item>
+      <ion-label>Sommersemester</ion-label>
+      <ion-checkbox [(ngModel)]="record.summerTerm"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Jahr</ion-label>
+      <ion-select interface="popover" [(ngModel)]="record.year">
+        <ion-select-option *ngFor="let year of years"
+                           [value]="year">{{year}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Creditpoints*</ion-label>
+      <ion-input class="ion-text-end"
+                 type="number"
+                 min="0"
+                 step="3"
+                 max="15"
+                 required [(ngModel)]="record.crp">
+      </ion-input>
+    </ion-item>
+    <p class="ion-text-end ion-padding-end"
+       style="color:var(--ion-color-danger)"
+       *ngIf="errors.get('crp')">
+      {{errors.get('crp')}}
+    </p>
+    <ion-item>
+      <ion-label>Note*</ion-label>
+      <ion-input class="ion-text-end"
+                 type="number"
+                 min="50"
+                 max="100"
+                 required [(ngModel)]="record.grade">
+      </ion-input>
+    </ion-item>
+    <p class="ion-text-end ion-padding-end"
+       style="color:var(--ion-color-danger)"
+       *ngIf="errors.get('grade')">
+      {{errors.get('grade')}}
+    </p>
+    <ion-item>
+      <ion-label>50%-Leistung</ion-label>
+      <ion-checkbox [(ngModel)]="record.halfWeighted"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-button class="ion-padding-horizontal" expand="block" (click)="save()">
+    Speichern
+  </ion-button>
+</ion-content>

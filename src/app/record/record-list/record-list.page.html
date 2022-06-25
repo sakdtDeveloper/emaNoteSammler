@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar *ngIf="searchBarActivated === true" color="primary">
+    <ion-searchbar [(ngModel)]="filter"
+                   #autofocus
+                   (ionChange)="search()"
+                   (ionCancel)="cancelSearch()"
+                   showCancelButton="always"
+                   placeholder="Modul suchen">
+    </ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="searchBarActivated === false" color="primary">
+    <ion-title>Leistungen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="cancelSearch()">
+        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="shareRecords()" >
+        <ion-icon slot="icon-only" name="mail"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-card class="card" *ngIf="showMess()">
+      <ion-card-title>
+        <h2 >{{message}}</h2>
+      </ion-card-title>
+      <ion-card-content >
+              <ion-button (click)="createRecord()">JETZT LEISTUNG EINTRAGEN</ion-button>
+      </ion-card-content>
+
+    </ion-card >
+    <ion-item *ngIf="!showMess()" (click)="showStats()">
+      <ion-label>
+        <h1>Gesantnote aus {{filteredRecords.length}} Leistung(en)</h1>
+       <ion-label color="primary"><ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
+        Details</ion-label>
+      </ion-label>
+
+      <h1>{{average}}%</h1>
+    </ion-item>
+      <ion-item-sliding button  *ngFor="let record of filteredRecords" (click)="editRecord(record)" >
+        <ion-item>
+          <ion-label>
+            <h1> {{record.moduleName}}</h1>
+            <p>  {{record.moduleNr}} {{record.crp}}crp</p>
+          </ion-label>
+
+          <h1>{{record.grade}}%</h1>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger"  (click)="deleteRecord(record)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+
+        </ion-item-options>
+
+      </ion-item-sliding>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="createRecord()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
